@@ -7,7 +7,7 @@ const isEmpty = value => value.trim() ==='';
 const isFiveChars = value => value.trim().length === 5 ;
 
 
-
+     
 const Checkout = (props) => {
    
      const [formInputsValidity , setFormInputValidity] = useState({
