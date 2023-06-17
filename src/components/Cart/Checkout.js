@@ -52,6 +52,12 @@ const Checkout = (props) => {
       }
       
       //submit cart data 
+      props.onConfirm({
+           name : enteredName , 
+           street : enteredStreet , 
+           city : enteredCity , 
+           postalCode : enteredPostalCode 
+      });
 
    }
     
@@ -59,6 +65,8 @@ const Checkout = (props) => {
     const streetInputRef = useRef() ; 
     const postalCodeInputRef = useRef() ; 
     const cityInputRef = useRef() ; 
+
+     
     
      const nameControlClasses = `${classes.control} ${formInputsValidity.name ? '' : classes.invalid }` ;
      const streetControlClasses = `${classes.control} ${formInputsValidity.street ? '' : classes.invalid }` ;
@@ -91,8 +99,10 @@ const Checkout = (props) => {
             { !formInputsValidity.city && <p  >Please enter valid City! </p>}
         
         </div>
-        <button className = {classes.actions} type = "button" onClick = {props.onCancel}>Cancel </button>
-        <button>Confirm </button>
+        <div className = {classes.actions} >
+         <button  type = "button" onClick = {props.onCancel}>Cancel </button>
+        <button type = "submit" onClick = {confirmHandler} >Confirm </button>
+        </div>
         
     </form>    
   )
