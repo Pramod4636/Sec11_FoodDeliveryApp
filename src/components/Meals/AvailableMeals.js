@@ -1,5 +1,4 @@
 import React from 'react'
-import DUMMY_MEALS from "./DUMMY_MEAL"
 import classes from './AvailableMeals.module.css'
 import Card from '../UI/Card';
 
@@ -11,12 +10,14 @@ import MealItem from './MealItem/MealItem';
 const AvailableMeals = () => {
    
    const [meals,setMeals] = useState([]);
+   const [isLoading , setIsLoading] = useState(true);
+
     useEffect( ()=> {
-    
+       
          const fetchMeals = async () => 
          {
             
-           const response = await fetch("https://react-http-264e0-default-rtdb.asia-southeast1.firebasedatabase.app/meals.json") ;
+           const response = await fetch("https://react-http-264e0-default-rtdb.asia-southeast1.firebasedatabase.app/meals") ;
            const responseData = await response.json();
 
           const loadedMeals = [];
@@ -31,10 +32,11 @@ const AvailableMeals = () => {
            }
 
             setMeals(loadedMeals);
+            setIsLoading(false);
          }
   
          fetchMeals();
-
+         
       }, []);
 
     const mealsList = meals.map( (meal) => {
@@ -47,12 +49,17 @@ const AvailableMeals = () => {
           />); 
     });
 
+    if(isLoading)
+    {
+       return <section className={classes.MealsLoading}> <p>Loading.......</p></section> ;
+    }
 
     return (
    <section className = {classes['meals']}>
       <Card>
       <ul>
          {mealsList}
+        
       </ul>
       </Card>
    </section>
